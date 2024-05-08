@@ -1,0 +1,371 @@
+{
+    "25-202 Ua Nahele St": {
+        "Full Address": "25-202 Ua Nahele St, Hilo, HI 96720",
+        "Price": "$525,000",
+        "Bedrooms": 3,
+        "Bathrooms": 2,
+        "Area": 1646,
+        "Image URL": "https://photos.zillowstatic.com/fp/8f69e0b76c2b23fcad81e54670b6d118-p_e.jpg",
+        "Detail URL": "https://www.zillow.com/homedetails/25-202-Ua-Nahele-St-Hilo-HI-96720/92452511_zpid/"
+    },
+    "74-5107 Palani Rd": {
+        "Full Address": "74-5107 Palani Rd, Kailua Kona, HI 96740",
+        "Price": "$775,000",
+        "Bedrooms": 2,
+        "Bathrooms": 3,
+        "Area": 1886,
+        "Image URL": "https://photos.zillowstatic.com/fp/a9808d8d5736005e6609c8b757eabcc7-p_e.jpg",
+        "Detail URL": "https://www.zillow.com/homedetails/74-5107-Palani-Rd-Kailua-Kona-HI-96740/568782_zpid/"
+    },
+    "92-8489 Macadamia Dr": {
+        "Full Address": "92-8489 Macadamia Dr, Captain Cook, HI 96704",
+        "Price": "$415,000",
+        "Bedrooms": 2,
+        "Bathrooms": 3,
+        "Area": 1680,
+        "Image URL": "https://photos.zillowstatic.com/fp/37706a24bc01c09183522516e92a6f6a-p_e.jpg",
+        "Detail URL": "https://www.zillow.com/homedetails/92-8489-Macadamia-Dr-Captain-Cook-HI-96704/575975_zpid/"
+    },
+    "146 Hoomalu St": {
+        "Full Address": "146 Hoomalu St, Hilo, HI 96720",
+        "Price": "$740,000",
+        "Bedrooms": 3,
+        "Bathrooms": 3,
+        "Area": 2247,
+        "Image URL": "https://photos.zillowstatic.com/fp/bc546ca77e4710bcd3e773186559741b-p_e.jpg",
+        "Detail URL": "https://www.zillow.com/homedetails/146-Hoomalu-St-Hilo-HI-96720/80323004_zpid/"
+    },
+    "15-2823 Lalakea St": {
+        "Full Address": "15-2823 Lalakea St, Pahoa, HI 96778",
+        "Price": "$400,000",
+        "Bedrooms": 4,
+        "Bathrooms": 3,
+        "Area": 2261,
+        "Image URL": "https://photos.zillowstatic.com/fp/e75de2154398404b64436452d71a5eb0-p_e.jpg",
+        "Detail URL": "https://www.zillow.com/homedetails/15-2823-Lalakea-St-Pahoa-HI-96778/541566_zpid/"
+    },
+    "15-168 S Puni Kahakai Loop": {
+        "Full Address": "15-168 S Puni Kahakai Loop, Pahoa, HI 96778",
+        "Price": "$237,500",
+        "Bedrooms": 3,
+        "Bathrooms": 2,
+        "Area": 1056,
+        "Image URL": "https://photos.zillowstatic.com/fp/963de89003e39698a60d700dda961a63-p_e.jpg",
+        "Detail URL": "https://www.zillow.com/homedetails/15-168-S-Puni-Kahakai-Loop-Pahoa-HI-96778/540057_zpid/"
+    },
+    "15-2827 Manalo St": {
+        "Full Address": "15-2827 Manalo St, Pahoa, HI 96778",
+        "Price": "$365,000",
+        "Bedrooms": 3,
+        "Bathrooms": 3,
+        "Area": 1420,
+        "Image URL": "https://photos.zillowstatic.com/fp/8f5947bac828ddfea3c2aef325c695e1-p_e.jpg",
+        "Detail URL": "https://www.zillow.com/homedetails/15-2827-Manalo-St-Pahoa-HI-96778/541640_zpid/"
+    },
+    "14-600 Flower Rd": {
+        "Full Address": "14-600 Flower Rd, Pahoa, HI 96778",
+        "Price": "$263,333",
+        "Bedrooms": 2,
+        "Bathrooms": 2,
+        "Area": 1008,
+        "Image URL": "https://photos.zillowstatic.com/fp/1d564fd3c727b06ba0b31ad23917a63e-p_e.jpg",
+        "Detail URL": "https://www.zillow.com/homedetails/14-600-Flower-Rd-Pahoa-HI-96778/138284244_zpid/"
+    },
+    "84 Private Rd": {
+        "Full Address": "84 Private Rd, Captain Cook, HI 96704",
+        "Price": "$495,000",
+        "Bedrooms": 1,
+        "Bathrooms": 1,
+        "Area": 1200,
+        "Image URL": "https://photos.zillowstatic.com/fp/b8e331a6063d9040cd47d6b148ebb68b-p_e.jpg",
+        "Detail URL": "https://www.zillow.com/homedetails/84-Private-Rd-Captain-Cook-HI-96704/342246788_zpid/"
+    },
+    "92-2167 Aloha Blvd": {
+        "Full Address": "92-2167 Aloha Blvd, Captain Cook, HI 96704",
+        "Price": "$160,000",
+        "Bedrooms": 3,
+        "Bathrooms": 4,
+        "Area": 1728,
+        "Image URL": "https://photos.zillowstatic.com/fp/6ad39c86cbe4f31daf8fcab3b2edc485-p_e.jpg",
+        "Detail URL": "https://www.zillow.com/homedetails/92-2167-Aloha-Blvd-Captain-Cook-HI-96704/2054002986_zpid/"
+    },
+    "12-5165 Kaimu Chain Of Craters Rd": {
+        "Full Address": "12-5165 Kaimu Chain Of Craters Rd, Pahoa, HI 96778",
+        "Price": "$299,000",
+        "Bedrooms": 3,
+        "Bathrooms": 2,
+        "Area": 1275,
+        "Image URL": "https://photos.zillowstatic.com/fp/8aa31099b929a8c61acde43011c56522-p_e.jpg",
+        "Detail URL": "https://www.zillow.com/homedetails/12-5165-Kaimu-Chain-Of-Craters-Rd-Pahoa-HI-96778/299973574_zpid/"
+    },
+    "161963 36th Ave": {
+        "Full Address": "161963 36th Ave, Kurtistown, HI 96760",
+        "Price": "$389,000",
+        "Bedrooms": 3,
+        "Bathrooms": 2,
+        "Area": 1320,
+        "Image URL": "https://photos.zillowstatic.com/fp/940b38a91276e641763e11e46d6c91cb-p_e.jpg",
+        "Detail URL": "https://www.zillow.com/homedetails/161963-36th-Ave-Kurtistown-HI-96760/347902014_zpid/"
+    },
+    "18-2333 Road 7": {
+        "Full Address": "18-2333 Road 7, Mountain View, HI 96771",
+        "Price": "$410,000",
+        "Bedrooms": 4,
+        "Bathrooms": 2,
+        "Area": 1360,
+        "Image URL": "https://photos.zillowstatic.com/fp/41de4e606f7d5f8c35f3c01765d4dddc-p_e.jpg",
+        "Detail URL": "https://www.zillow.com/homedetails/18-2333-Road-7-Mountain-View-HI-96771/2053036024_zpid/"
+    },
+    "71-1713 Puu Lani Dr": {
+        "Full Address": "71-1713 Puu Lani Dr, Kailua Kona, HI 96740",
+        "Price": "$1,025,000",
+        "Bedrooms": 3,
+        "Bathrooms": 2,
+        "Area": 1923,
+        "Image URL": "https://photos.zillowstatic.com/fp/01d1fdc96db9de78921d45064d9cdc54-p_e.jpg",
+        "Detail URL": "https://www.zillow.com/homedetails/71-1713-Puu-Lani-Dr-Kailua-Kona-HI-96740/80323566_zpid/"
+    },
+    "45-3397 Kukui St": {
+        "Full Address": "45-3397 Kukui St, Honokaa, HI 96727",
+        "Price": "$410,000",
+        "Bedrooms": 3,
+        "Bathrooms": 3,
+        "Area": 1824,
+        "Image URL": "https://photos.zillowstatic.com/fp/29d53ca54ec2c990b3389f7c6b837dc1-p_e.jpg",
+        "Detail URL": "https://www.zillow.com/homedetails/45-3397-Kukui-St-Honokaa-HI-96727/348843759_zpid/"
+    },
+    "95-5555 Nahele St": {
+        "Full Address": "95-5555 Nahele St, Naalehu, HI 96772",
+        "Price": "$195,000",
+        "Bedrooms": 6,
+        "Bathrooms": 3,
+        "Area": 2164,
+        "Image URL": "https://photos.zillowstatic.com/fp/e72f1fffdb49f555e55db21879f8baeb-p_e.jpg",
+        "Detail URL": "https://www.zillow.com/homedetails/95-5555-Nahele-St-Naalehu-HI-96772/576480_zpid/"
+    },
+    "14-3592 Lanai Rd": {
+        "Full Address": "14-3592 Lanai Rd, Pahoa, HI 96778",
+        "Price": "$315,000",
+        "Bedrooms": 3,
+        "Bathrooms": 3,
+        "Area": 1619,
+        "Image URL": "https://photos.zillowstatic.com/fp/88b54239a89ffb4addd49ebf67601505-p_e.jpg",
+        "Detail URL": "https://www.zillow.com/homedetails/14-3592-Lanai-Rd-Pahoa-HI-96778/535951_zpid/"
+    },
+    "15-1544 15th Ave": {
+        "Full Address": "15-1544 15th Ave, Keaau, HI 96749",
+        "Price": "$699,000",
+        "Bedrooms": 4,
+        "Bathrooms": 3,
+        "Area": 2304,
+        "Image URL": "https://photos.zillowstatic.com/fp/80112dbcabb4748c9a40081294810b5c-p_e.jpg",
+        "Detail URL": "https://www.zillow.com/homedetails/15-1544-15th-Ave-Keaau-HI-96749/2057763774_zpid/"
+    },
+    "75-213 Aloha Kona Dr": {
+        "Full Address": "75-213 Aloha Kona Dr, Kailua Kona, HI 96740",
+        "Price": "$675,000",
+        "Bedrooms": 2,
+        "Bathrooms": 1,
+        "Area": 768,
+        "Image URL": "https://photos.zillowstatic.com/fp/922debde1b5974de30fa32403da8818e-p_e.jpg",
+        "Detail URL": "https://www.zillow.com/homedetails/75-213-Aloha-Kona-Dr-Kailua-Kona-HI-96740/570248_zpid/"
+    },
+    "11-3250 Lehua St": {
+        "Full Address": "11-3250 Lehua St, Mountain View, HI 96771",
+        "Price": "$269,000",
+        "Bedrooms": 1,
+        "Bathrooms": 1,
+        "Area": 1148,
+        "Image URL": "https://photos.zillowstatic.com/fp/8c01c58f487a085a1578152471440c9a-p_e.jpg",
+        "Detail URL": "https://www.zillow.com/homedetails/11-3250-Lehua-St-Mountain-View-HI-96771/2063830032_zpid/"
+    },
+    "15-2756 Oopu St": {
+        "Full Address": "15-2756 Oopu St, Pahoa, HI 96778",
+        "Price": "$190,000",
+        "Bedrooms": 1,
+        "Bathrooms": 1,
+        "Area": 650,
+        "Image URL": "https://photos.zillowstatic.com/fp/a94b5125ae0cafed233f6ea7423fa098-p_e.jpg",
+        "Detail URL": "https://www.zillow.com/homedetails/15-2756-Oopu-St-Pahoa-HI-96778/349330467_zpid/"
+    },
+    "15-2724 Maikoiko St": {
+        "Full Address": "15-2724 Maikoiko St, Pahoa, HI 96778",
+        "Price": "$215,000",
+        "Bedrooms": 3,
+        "Bathrooms": 3,
+        "Area": 1328,
+        "Image URL": "https://photos.zillowstatic.com/fp/d52fd6fa9fb76095fda84728bcce1f02-p_e.jpg",
+        "Detail URL": "https://www.zillow.com/homedetails/15-2724-Maikoiko-St-Pahoa-HI-96778/299959146_zpid/"
+    },
+    "76-4372 Leilani St": {
+        "Full Address": "76-4372 Leilani St, Kailua Kona, HI 96740",
+        "Price": "$1,450,000",
+        "Bedrooms": 2,
+        "Bathrooms": 2,
+        "Area": 1784,
+        "Image URL": "https://photos.zillowstatic.com/fp/c9cc63dd87c63b5777d96ff299f55cc3-p_e.jpg",
+        "Detail URL": "https://www.zillow.com/homedetails/76-4372-Leilani-St-Kailua-Kona-HI-96740/572138_zpid/"
+    },
+    "12-5455 Ala Lokelani": {
+        "Full Address": "12-5455 Ala Lokelani, Pahoa, HI 96778",
+        "Price": "$250,000",
+        "Bedrooms": 6,
+        "Bathrooms": 5,
+        "Area": 3372,
+        "Image URL": "https://photos.zillowstatic.com/fp/8d8553e5642f9a0cd20d19a4b3ad45b0-p_e.jpg",
+        "Detail URL": "https://www.zillow.com/homedetails/12-5455-Ala-Lokelani-Pahoa-HI-96778/299973561_zpid/"
+    },
+    "13-1305 Leilani Ave": {
+        "Full Address": "13-1305 Leilani Ave, Pahoa, HI 96778",
+        "Price": "$215,000",
+        "Bedrooms": 3,
+        "Bathrooms": 2,
+        "Area": 1360,
+        "Image URL": "https://photos.zillowstatic.com/fp/104bb5720ac57decd59047fbbc387250-p_e.jpg",
+        "Detail URL": "https://www.zillow.com/homedetails/13-1305-Leilani-Ave-Pahoa-HI-96778/138282260_zpid/"
+    },
+    "84-5018P Hawaii Belt Rd": {
+        "Full Address": "84-5018P Hawaii Belt Rd, Captain Cook, HI 96704",
+        "Price": "$449,000",
+        "Bedrooms": 5,
+        "Bathrooms": 5,
+        "Area": 3714,
+        "Image URL": "https://photos.zillowstatic.com/fp/df264e43cb693d783881c875723f1937-p_e.jpg",
+        "Detail URL": "https://www.zillow.com/homedetails/84-5018P-Hawaii-Belt-Rd-Captain-Cook-HI-96704/2053033912_zpid/"
+    },
+    "11-2132 Kokokahi Rd": {
+        "Full Address": "11-2132 Kokokahi Rd, Volcano, HI 96785",
+        "Price": "$145,000",
+        "Bedrooms": 2,
+        "Bathrooms": 2,
+        "Area": 720,
+        "Image URL": "https://photos.zillowstatic.com/fp/67fd7ea675b97f37adda731ffabeed63-p_e.jpg",
+        "Detail URL": "https://www.zillow.com/homedetails/11-2132-Kokokahi-Rd-Volcano-HI-96785/2053186531_zpid/"
+    },
+    "15-1505 1st Ave": {
+        "Full Address": "15-1505 1st Ave, Keaau, HI 96749",
+        "Price": "$649,000",
+        "Bedrooms": 4,
+        "Bathrooms": 3,
+        "Area": 2232,
+        "Image URL": "https://photos.zillowstatic.com/fp/8283d171c1929ab6674abf6bd847bbfa-p_e.jpg",
+        "Detail URL": "https://www.zillow.com/homedetails/15-1505-1st-Ave-Keaau-HI-96749/89182010_zpid/"
+    },
+    "11-2060 Alii Wao Rd": {
+        "Full Address": "11-2060 Alii Wao Rd, Volcano, HI 96785",
+        "Price": "$195,000",
+        "Bedrooms": 3,
+        "Bathrooms": 2,
+        "Area": 1056,
+        "Image URL": "https://photos.zillowstatic.com/fp/0b0f7a1a86c44502a6dc1d2652ce6e03-p_e.jpg",
+        "Detail URL": "https://www.zillow.com/homedetails/11-2060-Alii-Wao-Rd-Volcano-HI-96785/2054301944_zpid/"
+    },
+    "76-977 Ala Makaa": {
+        "Full Address": "76-977 Ala Makaa, Holualoa, HI 96725",
+        "Price": "$3,795,000",
+        "Bedrooms": 4,
+        "Bathrooms": 5,
+        "Area": 3432,
+        "Image URL": "https://photos.zillowstatic.com/fp/740f408b391581fa53205d7693579b13-p_e.jpg",
+        "Detail URL": "https://www.zillow.com/homedetails/76-977-Ala-Makaa-Holualoa-HI-96725/244096676_zpid/"
+    },
+    "78-6855 Kuhinanui St": {
+        "Full Address": "78-6855 Kuhinanui St, Kailua Kona, HI 96740",
+        "Price": "$2,799,000",
+        "Bedrooms": 5,
+        "Bathrooms": 6,
+        "Area": 4650,
+        "Image URL": "https://photos.zillowstatic.com/fp/f8e852bf931b4cc03019d6bffd78baa2-p_e.jpg",
+        "Detail URL": "https://www.zillow.com/homedetails/78-6855-Kuhinanui-St-Kailua-Kona-HI-96740/573854_zpid/"
+    },
+    "935 Waianuenue Ave": {
+        "Full Address": "935 Waianuenue Ave, Hilo, HI 96720",
+        "Price": "$375,000",
+        "Bedrooms": 4,
+        "Bathrooms": 1,
+        "Area": 888,
+        "Image URL": "https://photos.zillowstatic.com/fp/8ecef2698a4ed016dfc2151cf9a556a0-p_e.jpg",
+        "Detail URL": "https://www.zillow.com/homedetails/935-Waianuenue-Ave-Hilo-HI-96720/548605_zpid/"
+    },
+    "27-106 Hikina Pl": {
+        "Full Address": "27-106 Hikina Pl, Hilo, HI 96720",
+        "Price": "$1,638,290",
+        "Bedrooms": 4,
+        "Bathrooms": 4,
+        "Area": 2908,
+        "Image URL": "https://photos.zillowstatic.com/fp/cacb7287521d559160dad940da0cc487-p_e.jpg",
+        "Detail URL": "https://www.zillow.com/homedetails/27-106-Hikina-Pl-Hilo-HI-96720/558487_zpid/"
+    },
+    "92-762 Hokulani Blvd": {
+        "Full Address": "92-762 Hokulani Blvd, Ocean View, HI 96704",
+        "Price": "$400,000",
+        "Bedrooms": 2,
+        "Bathrooms": 2,
+        "Area": 1332,
+        "Image URL": "https://photos.zillowstatic.com/fp/5aea154d360c9dc8c6e48de6ad61bcad-p_e.jpg",
+        "Detail URL": "https://www.zillow.com/homedetails/92-762-Hokulani-Blvd-Ocean-View-HI-96704/332934288_zpid/"
+    },
+    "36-2632 Old Mamalahoa Hwy": {
+        "Full Address": "36-2632 Old Mamalahoa Hwy, Laupahoehoe, HI 96764",
+        "Price": "$689,899",
+        "Bedrooms": 3,
+        "Bathrooms": 1,
+        "Area": 758,
+        "Image URL": "https://photos.zillowstatic.com/fp/7e577d5a20f72691e6f396d91b4bbd8a-p_e.jpg",
+        "Detail URL": "https://www.zillow.com/homedetails/36-2632-Old-Mamalahoa-Hwy-Laupahoehoe-HI-96764/2067537919_zpid/"
+    },
+    "14-3495 Forest Rd": {
+        "Full Address": "14-3495 Forest Rd, Pahoa, HI 96778",
+        "Price": "$59,000",
+        "Bedrooms": 2,
+        "Bathrooms": 2,
+        "Area": 298,
+        "Image URL": "https://photos.zillowstatic.com/fp/c5c4f472349c3a39fa894831a52b8851-p_e.jpg",
+        "Detail URL": "https://www.zillow.com/homedetails/14-3495-Forest-Rd-Pahoa-HI-96778/299957925_zpid/"
+    },
+    "16-997 Wao Kele Rd": {
+        "Full Address": "16-997 Wao Kele Rd, Mountain View, HI 96771",
+        "Price": "$425,000",
+        "Bedrooms": 3,
+        "Bathrooms": 2,
+        "Area": 2000,
+        "Image URL": "https://photos.zillowstatic.com/fp/8b04b9b25f79ec12c02fe11fc838c6fe-p_e.jpg",
+        "Detail URL": "https://www.zillow.com/homedetails/16-997-Wao-Kele-Rd-Mountain-View-HI-96771/2063789914_zpid/"
+    },
+    "73-1385 Kinoulu Pl": {
+        "Full Address": "73-1385 Kinoulu Pl, Kailua Kona, HI 96740",
+        "Price": "$2,600,000",
+        "Bedrooms": 6,
+        "Bathrooms": 7,
+        "Area": 3531,
+        "Image URL": "https://photos.zillowstatic.com/fp/15000ffa92c83fa4525f696a58e6adb2-p_e.jpg",
+        "Detail URL": "https://www.zillow.com/homedetails/73-1385-Kinoulu-Pl-Kailua-Kona-HI-96740/138325527_zpid/"
+    },
+    "68-1859 Mahina Pl": {
+        "Full Address": "68-1859 Mahina Pl, Waikoloa, HI 96738",
+        "Price": "$875,000",
+        "Bedrooms": 3,
+        "Bathrooms": 2,
+        "Area": 1522,
+        "Image URL": "https://photos.zillowstatic.com/fp/68929999a4c51978f6fe502692590752-p_e.jpg",
+        "Detail URL": "https://www.zillow.com/homedetails/68-1859-Mahina-Pl-Waikoloa-HI-96738/564912_zpid/"
+    },
+    "64-952 Mamalahoa Hwy": {
+        "Full Address": "64-952 Mamalahoa Hwy, Kamuela, HI 96743",
+        "Price": "$519,900",
+        "Bedrooms": 3,
+        "Bathrooms": 2,
+        "Area": 1116,
+        "Image URL": "https://photos.zillowstatic.com/fp/a0e79073863c799a94cd7328d209d705-p_e.jpg",
+        "Detail URL": "https://www.zillow.com/homedetails/64-952-Mamalahoa-Hwy-Kamuela-HI-96743/563458_zpid/"
+    },
+    "15-3217 Lehualani Pl": {
+        "Full Address": "15-3217 Lehualani Pl, Pahoa, HI 96778",
+        "Price": "$299,000",
+        "Bedrooms": 8,
+        "Bathrooms": 5,
+        "Area": 2821,
+        "Image URL": "https://photos.zillowstatic.com/fp/d2deb911bbff0f8014ce16164a00ca9b-p_e.jpg",
+        "Detail URL": "https://www.zillow.com/homedetails/15-3217-Lehualani-Pl-Pahoa-HI-96778/138290952_zpid/"
+    }
+}
