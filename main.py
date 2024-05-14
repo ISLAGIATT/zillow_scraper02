@@ -175,12 +175,12 @@ def scrape_and_notify():
 
     conn.close()
 
-
-# Schedule the scraping job to run twice daily
-schedule.every().day.at("08:00").do(scrape_and_notify)
-schedule.every().day.at("20:00").do(scrape_and_notify)
-
-# Continuously run the scheduler
-while True:
-    schedule.run_pending()
-    time.sleep(60)
+scrape_and_notify()
+# # Schedule the scraping job to run twice daily
+# schedule.every().day.at("08:00").do(scrape_and_notify)
+# schedule.every().day.at("20:00").do(scrape_and_notify)
+#
+# # Continuously run the scheduler
+# while True:
+#     schedule.run_pending()
+#     time.sleep(60)
