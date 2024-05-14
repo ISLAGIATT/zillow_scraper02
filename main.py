@@ -10,6 +10,13 @@ from email.mime.application import MIMEApplication
 import schedule
 import time
 
+EMAIL_SENDER = os.getenv('EMAIL_SENDER')
+EMAIL_PASSWORD = os.getenv('EMAIL_PASSWORD')
+RECIPIENT_1 = os.getenv('RECIPIENT_1')
+RECIPIENT_2 = os.getenv('RECIPIENT_2')
+
+
+
 BASE_HEADERS = {
     "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
                   "Chrome/96.0.4664.110 Safari/537.36",
@@ -116,7 +123,7 @@ def parse_and_insert_results(data, conn):
 
 def send_email(new_listings, recipients):
     msg = MIMEMultipart()
-    msg['From'] = "testcode65@outlook.com"
+    msg['From'] = EMAIL_SENDER
     msg['To'] = ", ".join(recipients)
     msg['Subject'] = "hawaii zillow bot news"
 
@@ -143,7 +150,7 @@ def send_email(new_listings, recipients):
 
     with smtplib.SMTP('smtp-mail.outlook.com', 587) as server:
         server.starttls()
-        server.login("testcode65@outlook.com", "buttsurprise100")
+        server.login(EMAIL_SENDER, EMAIL_PASSWORD)
         server.sendmail(msg['From'], recipients, msg.as_string())
 
 def scrape_and_notify():
@@ -160,16 +167,16 @@ def scrape_and_notify():
         all_new_listings.extend(new_listings)
 
     if all_new_listings:
-        send_email(all_new_listings, ["mattrhansen@outlook.com"])
+        send_email(all_new_listings, [RECIPIENT_1])
 
     conn.close()
 
-
-# Schedule the scraping job to run twice daily
-schedule.every().day.at("09:45").do(scrape_and_notify)
-schedule.every().day.at("20:00").do(scrape_and_notify)
-
-# Continuously run the scheduler
-while True:
-    schedule.run_pending()
-    time.sleep(60)
+scrape_and_notify()
+# # Schedule the scraping job to run twice daily
+# schedule.every().day.at("09:45").do(scrape_and_notify)
+# schedule.every().day.at("20:00").do(scrape_and_notify)
+#
+# # Continuously run the scheduler
+# while True:
+#     schedule.run_pending()
+#     time.sleep(60)
