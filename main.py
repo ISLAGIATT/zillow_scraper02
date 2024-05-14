@@ -70,7 +70,7 @@ def scrape_maui_zillow():
            "%22south%22%3A20.345325891144544%2C%22north%22%3A21.387284027917385%7D%2C%22usersSearchTerm%22%3A%22Maui"
            "%20County%2C%20HI%22%2C%22regionSelection%22%3A%5B%7B%22regionId%22%3A250%2C%22regionType%22%3A4%7D%5D%2C"
            "%22filterState%22%3A%7B%22sort%22%3A%7B%22value%22%3A%22globalrelevanceex%22%7D%2C%22price%22%3A%7B%22min"
-           "%22%3A0%2C%22max%22%3A350000%7D%2C%22mp%22%3A%7B%22min%22%3A0%2C%22max%22%3A1815%7D%2C%22tow%22%3A%7B"
+           "%22%3A0%2C%22max%22%3A300000%7D%2C%22mp%22%3A%7B%22min%22%3A0%2C%22max%22%3A1556%7D%2C%22tow%22%3A%7B"
            "%22value%22%3Afalse%7D%2C%22mf%22%3A%7B%22value%22%3Afalse%7D%2C%22land%22%3A%7B%22value%22%3Afalse%7D%2C"
            "%22ah%22%3A%7B%22value%22%3Atrue%7D%2C%22apa%22%3A%7B%22value%22%3Afalse%7D%2C%22manu%22%3A%7B%22value%22"
            "%3Afalse%7D%7D%2C%22isListVisible%22%3Atrue%7D")
@@ -171,16 +171,16 @@ def scrape_and_notify():
         all_new_listings.extend(new_listings)
 
     if all_new_listings:
-        send_email(all_new_listings, [RECIPIENT_1])
+        send_email(all_new_listings, [RECIPIENT_1, RECIPIENT_2])
 
     conn.close()
 
-scrape_and_notify()
-# # Schedule the scraping job to run twice daily
-# schedule.every().day.at("08:00").do(scrape_and_notify)
-# schedule.every().day.at("20:00").do(scrape_and_notify)
-#
-# # Continuously run the scheduler
-# while True:
-#     schedule.run_pending()
-#     time.sleep(60)
+
+# Schedule the scraping job to run twice daily
+schedule.every().day.at("08:00").do(scrape_and_notify)
+schedule.every().day.at("20:00").do(scrape_and_notify)
+
+# Continuously run the scheduler
+while True:
+    schedule.run_pending()
+    time.sleep(60)
