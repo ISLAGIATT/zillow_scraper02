@@ -15,8 +15,6 @@ EMAIL_PASSWORD = os.getenv('EMAIL_PASSWORD')
 RECIPIENT_1 = os.getenv('RECIPIENT_1')
 RECIPIENT_2 = os.getenv('RECIPIENT_2')
 
-
-
 BASE_HEADERS = {
     "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
                   "Chrome/96.0.4664.110 Safari/537.36",
@@ -26,6 +24,7 @@ BASE_HEADERS = {
 }
 
 DB_PATH = "listings.db"
+
 
 def create_table(conn):
     cursor = conn.cursor()
@@ -43,6 +42,7 @@ def create_table(conn):
         )
     """)
     conn.commit()
+
 
 def insert_or_ignore_listing(conn, listing):
     cursor = conn.cursor()
@@ -63,6 +63,7 @@ def scrape_big_island_zillow():
     big_island_data = json.loads(sel.css("script#__NEXT_DATA__::text").get())
     return big_island_data
 
+
 def scrape_maui_zillow():
     url = ("https://www.zillow.com/maui-county-hi/?searchQueryState=%7B%22isMapVisible%22%3Atrue%2C%22mapBounds%22%3A"
            "%7B%22north%22%3A21.38728402791739%2C%22south%22%3A20.345325891144547%2C%22east%22%3A-155.84329175585935"
@@ -79,6 +80,7 @@ def scrape_maui_zillow():
     maui_data = json.loads(sel.css("script#__NEXT_DATA__::text").get())
     return maui_data
 
+
 def scrape_kauai_zillow():
     url = ("https://www.zillow.com/kauai-county-hi/?searchQueryState=%7B%22isMapVisible%22%3Atrue%2C%22mapBounds%22"
            "%3A%7B%22north%22%3A22.46205510651506%2C%22south%22%3A21.427758392993628%2C%22east%22%3A-159"
@@ -94,6 +96,7 @@ def scrape_kauai_zillow():
     sel = Selector(text=resp.text)
     kauai_data = json.loads(sel.css("script#__NEXT_DATA__::text").get())
     return kauai_data
+
 
 def parse_and_insert_results(data, conn):
     list_results = data["props"]["pageProps"]["searchPageState"]["cat1"]["searchResults"]["listResults"]
@@ -153,6 +156,7 @@ def send_email(new_listings, recipients):
         server.login(EMAIL_SENDER, EMAIL_PASSWORD)
         server.sendmail(msg['From'], recipients, msg.as_string())
 
+
 def scrape_and_notify():
     conn = sqlite3.connect(DB_PATH)
     create_table(conn)
@@ -171,12 +175,12 @@ def scrape_and_notify():
 
     conn.close()
 
-scrape_and_notify()
-# # Schedule the scraping job to run twice daily
-# schedule.every().day.at("08:00").do(scrape_and_notify)
-# schedule.every().day.at("20:00").do(scrape_and_notify)
-#
-# # Continuously run the scheduler
-# while True:
-#     schedule.run_pending()
-#     time.sleep(60)
+
+# Schedule the scraping job to run twice daily
+schedule.every().day.at("08:00").do(scrape_and_notify)
+schedule.every().day.at("20:00").do(scrape_and_notify)
+
+# Continuously run the scheduler
+while True:
+    schedule.run_pending()
+    time.sleep(60)
