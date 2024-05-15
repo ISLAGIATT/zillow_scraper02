@@ -9,12 +9,18 @@ from email.mime.multipart import MIMEMultipart
 from email.mime.application import MIMEApplication
 import schedule
 import time
+import logging
 
+# Set up logging
+logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
+
+# Environment variables for email configuration
 EMAIL_SENDER = os.getenv('EMAIL_SENDER')
 EMAIL_PASSWORD = os.getenv('EMAIL_PASSWORD')
 RECIPIENT_1 = os.getenv('RECIPIENT_1')
 RECIPIENT_2 = os.getenv('RECIPIENT_2')
 
+# Base headers for HTTP requests
 BASE_HEADERS = {
     "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
                   "Chrome/96.0.4664.110 Safari/537.36",
@@ -23,9 +29,10 @@ BASE_HEADERS = {
     "accept-encoding": "gzip, deflate, br",
 }
 
+# Database path
 DB_PATH = "listings.db"
 
-
+# Function to create the listings table
 def create_table(conn):
     cursor = conn.cursor()
     cursor.execute("""
@@ -43,7 +50,7 @@ def create_table(conn):
     """)
     conn.commit()
 
-
+# Function to insert a new listing or ignore if it already exists
 def insert_or_ignore_listing(conn, listing):
     cursor = conn.cursor()
     cursor.execute("""
@@ -54,7 +61,7 @@ def insert_or_ignore_listing(conn, listing):
     conn.commit()
     return cursor.lastrowid  # Returns 0 if insertion was ignored
 
-
+# Function to scrape listings from Big Island Zillow
 def scrape_big_island_zillow():
     url = "https://www.zillow.com/island-of-hawaii-hilo-hi/houses/"
     with httpx.Client(http2=True, headers=BASE_HEADERS, follow_redirects=True) as client:
@@ -63,7 +70,7 @@ def scrape_big_island_zillow():
     big_island_data = json.loads(sel.css("script#__NEXT_DATA__::text").get())
     return big_island_data
 
-
+# Function to scrape listings from Maui Zillow
 def scrape_maui_zillow():
     url = ("https://www.zillow.com/maui-county-hi/?searchQueryState=%7B%22pagination%22%3A%7B%7D%2C%22isMapVisible%22"
            "%3Atrue%2C%22mapBounds%22%3A%7B%22west%22%3A-157.4500422441406%2C%22east%22%3A-155.84329175585935%2C"
@@ -80,7 +87,7 @@ def scrape_maui_zillow():
     maui_data = json.loads(sel.css("script#__NEXT_DATA__::text").get())
     return maui_data
 
-
+# Function to scrape listings from Kauai Zillow
 def scrape_kauai_zillow():
     url = ("https://www.zillow.com/kauai-county-hi/?searchQueryState=%7B%22isMapVisible%22%3Atrue%2C%22mapBounds%22"
            "%3A%7B%22north%22%3A22.46205510651506%2C%22south%22%3A21.427758392993628%2C%22east%22%3A-159"
@@ -97,7 +104,7 @@ def scrape_kauai_zillow():
     kauai_data = json.loads(sel.css("script#__NEXT_DATA__::text").get())
     return kauai_data
 
-
+# Function to parse and insert new listings into the database
 def parse_and_insert_results(data, conn):
     list_results = data["props"]["pageProps"]["searchPageState"]["cat1"]["searchResults"]["listResults"]
     new_listings = []
@@ -120,10 +127,10 @@ def parse_and_insert_results(data, conn):
         row_id = insert_or_ignore_listing(conn, listing)
         if row_id:  # New listing inserted
             new_listings.append(listing)
-    print(new_listings)
+    logging.info(f"Listing(s) found: {new_listings}")
     return new_listings
 
-
+# Function to send email notifications
 def send_email(new_listings, recipients):
     msg = MIMEMultipart()
     msg['From'] = EMAIL_SENDER
@@ -155,8 +162,9 @@ def send_email(new_listings, recipients):
         server.starttls()
         server.login(EMAIL_SENDER, EMAIL_PASSWORD)
         server.sendmail(msg['From'], recipients, msg.as_string())
+        logging.info(f"Email sent to {recipients}")
 
-
+# Function to scrape and notify recipients
 def scrape_and_notify():
     conn = sqlite3.connect(DB_PATH)
     create_table(conn)
@@ -175,6 +183,9 @@ def scrape_and_notify():
 
     conn.close()
 
+
+# Initial scrape and notify
+scrape_and_notify()
 
 # Schedule the scraping job to run twice daily
 schedule.every().day.at("08:00").do(scrape_and_notify)
