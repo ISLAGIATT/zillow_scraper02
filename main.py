@@ -6,7 +6,6 @@ from parsel import Selector
 import smtplib
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
-from email.mime.application import MIMEApplication
 import schedule
 import time
 import logging
@@ -182,7 +181,6 @@ def scrape_and_notify():
         send_email(all_new_listings, [RECIPIENT_1, RECIPIENT_2])
 
     conn.close()
-
 
 # Initial scrape and notify
 scrape_and_notify()
