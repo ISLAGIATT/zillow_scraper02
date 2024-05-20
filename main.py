@@ -1,3 +1,4 @@
+# TODO: change to db based result filtering instead of url based. is resending old results
 import json
 import httpx
 import os
@@ -18,6 +19,10 @@ EMAIL_SENDER = os.getenv('EMAIL_SENDER')
 EMAIL_PASSWORD = os.getenv('EMAIL_PASSWORD')
 RECIPIENT_1 = os.getenv('RECIPIENT_1')
 RECIPIENT_2 = os.getenv('RECIPIENT_2')
+
+# Ensure environment variables are set
+if not EMAIL_SENDER or not EMAIL_PASSWORD or not RECIPIENT_1 or not RECIPIENT_2:
+    raise ValueError("Please set the environment variables EMAIL_SENDER, EMAIL_PASSWORD, RECIPIENT_1, and RECIPIENT_2")
 
 # Base headers for HTTP requests
 BASE_HEADERS = {
@@ -125,7 +130,11 @@ def parse_and_insert_results(data, conn):
 
         row_id = insert_or_ignore_listing(conn, listing)
         if row_id:  # New listing inserted
+            logging.info(f"New listing inserted: {listing['address']}")
             new_listings.append(listing)
+        else:
+            print(f"Listing already exists: {listing['address']}")
+            logging.info(f"Listing already exists: {listing['address']}")
     logging.info(f"Listing(s) found: {new_listings}")
     return new_listings
 
@@ -178,12 +187,14 @@ def scrape_and_notify():
         all_new_listings.extend(new_listings)
 
     if all_new_listings:
-        send_email(all_new_listings, [RECIPIENT_1, RECIPIENT_2])
+        send_email(all_new_listings, [RECIPIENT_1, RECIPIENT_2]) #for debugging just send to me
 
     conn.close()
 
-# Initial scrape and notify
-scrape_and_notify()
+
+
+# # Initial scrape and notify
+# scrape_and_notify()
 
 # Schedule the scraping job to run twice daily
 schedule.every().day.at("08:00").do(scrape_and_notify)
