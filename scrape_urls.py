@@ -1,4 +1,5 @@
 class Urls:
+    # urls contain search terms: named location, price <300k and condo/house
     big_island_scrape = ("https://www.zillow.com/island-of-hawaii-hilo-hi/?searchQueryState=%7B%22pagination%22%3A%7B"
                          "%7D%2C%22isMapVisible%22%3Atrue%2C%22mapBounds%22%3A%7B%22west%22%3A-157.04063398828126%2C"
                          "%22east%22%3A-153.82713301171876%2C%22south%22%3A18.537330703267006%2C%22north%22%3A20"
