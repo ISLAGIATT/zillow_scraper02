@@ -4,13 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="2c99b100-b154-4888-8641-197201ac0d13" name="Changes" comment="added sql logging to terminal">
-      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/profiles_settings.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    <list default="true" id="2c99b100-b154-4888-8641-197201ac0d13" name="Changes" comment="improved logging">
+      <change afterPath="$PROJECT_DIR$/scrape_urls.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/listings.db" beforeDir="false" afterPath="$PROJECT_DIR$/listings.db" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
     </list>
@@ -200,7 +196,15 @@
       <option name="project" value="LOCAL" />
       <updated>1715829552059</updated>
     </task>
-    <option name="localTasksCounter" value="13" />
+    <task id="LOCAL-00013" summary="improved logging">
+      <option name="closed" value="true" />
+      <created>1716236777629</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1716236777629</updated>
+    </task>
+    <option name="localTasksCounter" value="14" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
@@ -211,6 +215,7 @@
     <MESSAGE value="test maui up to 350k" />
     <MESSAGE value="should be good for live" />
     <MESSAGE value="added sql logging to terminal" />
-    <option name="LAST_COMMIT_MESSAGE" value="added sql logging to terminal" />
+    <MESSAGE value="improved logging" />
+    <option name="LAST_COMMIT_MESSAGE" value="improved logging" />
   </component>
 </project>

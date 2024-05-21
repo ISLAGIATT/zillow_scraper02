@@ -1,4 +1,3 @@
-# TODO: change to db based result filtering instead of url based. is resending old results
 import json
 import httpx
 import os
@@ -10,6 +9,8 @@ from email.mime.multipart import MIMEMultipart
 import schedule
 import time
 import logging
+
+from scrape_urls import Urls
 
 # Set up logging
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
@@ -67,7 +68,7 @@ def insert_or_ignore_listing(conn, listing):
 
 # Function to scrape listings from Big Island Zillow
 def scrape_big_island_zillow():
-    url = "https://www.zillow.com/island-of-hawaii-hilo-hi/houses/"
+    url = Urls.big_island_scrape
     with httpx.Client(http2=True, headers=BASE_HEADERS, follow_redirects=True) as client:
         resp = client.get(url)
     sel = Selector(text=resp.text)
@@ -76,15 +77,7 @@ def scrape_big_island_zillow():
 
 # Function to scrape listings from Maui Zillow
 def scrape_maui_zillow():
-    url = ("https://www.zillow.com/maui-county-hi/?searchQueryState=%7B%22pagination%22%3A%7B%7D%2C%22isMapVisible%22"
-           "%3Atrue%2C%22mapBounds%22%3A%7B%22west%22%3A-157.4500422441406%2C%22east%22%3A-155.84329175585935%2C"
-           "%22south%22%3A20.345325891144544%2C%22north%22%3A21.387284027917385%7D%2C%22usersSearchTerm%22%3A%22Maui"
-           "%20County%2C%20HI%22%2C%22regionSelection%22%3A%5B%7B%22regionId%22%3A250%2C%22regionType%22%3A4%7D%5D%2C"
-           "%22filterState%22%3A%7B%22sort%22%3A%7B%22value%22%3A%22globalrelevanceex%22%7D%2C%22price%22%3A%7B%22min"
-           "%22%3A0%2C%22max%22%3A300000%7D%2C%22mp%22%3A%7B%22min%22%3A0%2C%22max%22%3A1556%7D%2C%22tow%22%3A%7B"
-           "%22value%22%3Afalse%7D%2C%22mf%22%3A%7B%22value%22%3Afalse%7D%2C%22land%22%3A%7B%22value%22%3Afalse%7D%2C"
-           "%22ah%22%3A%7B%22value%22%3Atrue%7D%2C%22apa%22%3A%7B%22value%22%3Afalse%7D%2C%22manu%22%3A%7B%22value%22"
-           "%3Afalse%7D%7D%2C%22isListVisible%22%3Atrue%7D")
+    url = Urls.maui_scrape
     with httpx.Client(http2=True, headers=BASE_HEADERS, follow_redirects=True) as client:
         resp = client.get(url)
     sel = Selector(text=resp.text)
@@ -93,15 +86,7 @@ def scrape_maui_zillow():
 
 # Function to scrape listings from Kauai Zillow
 def scrape_kauai_zillow():
-    url = ("https://www.zillow.com/kauai-county-hi/?searchQueryState=%7B%22isMapVisible%22%3Atrue%2C%22mapBounds%22"
-           "%3A%7B%22north%22%3A22.46205510651506%2C%22south%22%3A21.427758392993628%2C%22east%22%3A-159"
-           ".1179757558594%2C%22west%22%3A-160.72472624414064%7D%2C%22usersSearchTerm%22%3A%22Maui%2C%20HI%22%2C"
-           "%22filterState%22%3A%7B%22sort%22%3A%7B%22value%22%3A%22globalrelevanceex%22%7D%2C%22tow%22%3A%7B%22value"
-           "%22%3Afalse%7D%2C%22mf%22%3A%7B%22value%22%3Afalse%7D%2C%22land%22%3A%7B%22value%22%3Afalse%7D%2C%22ah%22"
-           "%3A%7B%22value%22%3Atrue%7D%2C%22apa%22%3A%7B%22value%22%3Afalse%7D%2C%22manu%22%3A%7B%22value%22%3Afalse"
-           "%7D%2C%22price%22%3A%7B%22max%22%3A300000%7D%2C%22mp%22%3A%7B%22max%22%3A1558%7D%7D%2C%22isListVisible%22"
-           "%3Atrue%2C%22regionSelection%22%3A%5B%7B%22regionId%22%3A578%2C%22regionType%22%3A4%7D%5D%2C%22pagination"
-           "%22%3A%7B%7D%7D")
+    url = Urls.kauai_scrape
     with httpx.Client(http2=True, headers=BASE_HEADERS, follow_redirects=True) as client:
         resp = client.get(url)
     sel = Selector(text=resp.text)
@@ -133,9 +118,8 @@ def parse_and_insert_results(data, conn):
             logging.info(f"New listing inserted: {listing['address']}")
             new_listings.append(listing)
         else:
-            print(f"Listing already exists: {listing['address']}")
             logging.info(f"Listing already exists: {listing['address']}")
-    logging.info(f"Listing(s) found: {new_listings}")
+
     return new_listings
 
 # Function to send email notifications
@@ -146,7 +130,7 @@ def send_email(new_listings, recipients):
     msg['Subject'] = "hawaii zillow bot news"
 
     body = "<html><body>"
-    body += "<h1>hey man i got some stuff</h1>"
+    body += "<h1>hey i found some stuff:</h1>"
     body += "<ul>"
 
     for listing in new_listings:
@@ -178,7 +162,7 @@ def scrape_and_notify():
     create_table(conn)
 
     # List of scraping functions
-    scraping_functions = [scrape_maui_zillow, scrape_kauai_zillow]
+    scraping_functions = [scrape_maui_zillow, scrape_kauai_zillow, scrape_big_island_zillow]
     all_new_listings = []
 
     for scrape_function in scraping_functions:
@@ -186,15 +170,13 @@ def scrape_and_notify():
         new_listings = parse_and_insert_results(data, conn)
         all_new_listings.extend(new_listings)
 
-    if all_new_listings:
+    if all_new_listings:  # Only send email if there are new listings
         send_email(all_new_listings, [RECIPIENT_1, RECIPIENT_2]) #for debugging just send to me
 
     conn.close()
 
-
-
-# # Initial scrape and notify
-# scrape_and_notify()
+# Initial scrape and notify
+scrape_and_notify()
 
 # Schedule the scraping job to run twice daily
 schedule.every().day.at("08:00").do(scrape_and_notify)
