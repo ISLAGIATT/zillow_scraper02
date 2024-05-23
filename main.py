@@ -11,6 +11,7 @@ import time
 import logging
 
 from scrape_urls import Urls
+from zip_code_data import ZipCodeData
 
 # Set up logging
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
@@ -50,7 +51,8 @@ def create_table(conn):
             area INTEGER,
             img_src TEXT,
             detail_url TEXT,
-            variable_data TEXT  
+            variable_data TEXT,
+            county TEXT
         )
     """)
     conn.commit()
@@ -59,10 +61,10 @@ def create_table(conn):
 def insert_or_ignore_listing(conn, listing):
     cursor = conn.cursor()
     cursor.execute("""
-        INSERT OR IGNORE INTO listings (address, price, bedrooms, bathrooms, area, img_src, detail_url, variable_data)
-        VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+        INSERT OR IGNORE INTO listings (address, price, bedrooms, bathrooms, area, img_src, detail_url, variable_data, county)
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
     """, (listing["address"], listing["price"], listing["bedrooms"], listing["bathrooms"],
-          listing["area"], listing["imgSrc"], listing["detailUrl"], listing["variableData"]))
+          listing["area"], listing["imgSrc"], listing["detailUrl"], listing["variableData"], listing["county"]))
     conn.commit()
     return cursor.lastrowid  # Returns 0 if insertion was ignored
 
@@ -94,13 +96,16 @@ def scrape_kauai_zillow():
     return kauai_data
 
 # Function to parse and insert new listings into the database
-def parse_and_insert_results(data, conn):
+def parse_and_insert_results(data, conn, zipcode_data):
     list_results = data["props"]["pageProps"]["searchPageState"]["cat1"]["searchResults"]["listResults"]
     new_listings = []
 
     for result in list_results:
         # Adding 'variableData' field extraction
         variable_data_text = result.get('variableData', {}).get('text', 'Not available')
+
+        # Extract zip code from the address, assuming it's the last part of the address
+        zip_code = result["address"].split()[-1]
 
         listing = {
             "address": result["address"],
@@ -110,7 +115,8 @@ def parse_and_insert_results(data, conn):
             "area": result.get("area", 0),
             "imgSrc": result["imgSrc"],
             "detailUrl": result["detailUrl"],
-            "variableData": variable_data_text  # Adding this new field
+            "variableData": variable_data_text,
+            "county": zipcode_data.determine_county(zip_code)  # Get the county based on the zip code
         }
 
         row_id = insert_or_ignore_listing(conn, listing)
@@ -141,6 +147,7 @@ def send_email(new_listings, recipients):
                  f"<b>Bathrooms:</b> {listing['bathrooms']}<br>"
                  f"<b>Area:</b> {listing['area']} sqft<br>"
                  f"<b>Days on Zillow:</b> {listing['variableData']}<br>"
+                 f"<b>County:</b> {listing['county']}<br>"  # Include county information
                  f"<a href='{listing['detailUrl']}'>More details</a></p>")
         body += f"<img src='{listing['imgSrc']}' alt='Listing Image' width='300'><br><br>"
         body += "</li>"
@@ -150,16 +157,21 @@ def send_email(new_listings, recipients):
 
     msg.attach(MIMEText(body, 'html'))
 
-    with smtplib.SMTP('smtp-mail.outlook.com', 587) as server:
-        server.starttls()
-        server.login(EMAIL_SENDER, EMAIL_PASSWORD)
-        server.sendmail(msg['From'], recipients, msg.as_string())
-        logging.info(f"Email sent to {recipients}")
+    try:
+        with smtplib.SMTP('smtp.mail.yahoo.com', 587) as server:
+            server.starttls()
+            server.login(EMAIL_SENDER, EMAIL_PASSWORD)
+            server.sendmail(msg['From'], recipients, msg.as_string())
+            logging.info(f"Email sent to {recipients}")
+    except Exception as e:
+        logging.error(f"Failed to send email: {e}")
 
 # Function to scrape and notify recipients
 def scrape_and_notify():
     conn = sqlite3.connect(DB_PATH)
     create_table(conn)
+
+    zipcode_data = ZipCodeData()  # Instantiate ZipCodeData
 
     # List of scraping functions
     scraping_functions = [scrape_maui_zillow, scrape_kauai_zillow, scrape_big_island_zillow]
@@ -167,11 +179,11 @@ def scrape_and_notify():
 
     for scrape_function in scraping_functions:
         data = scrape_function()
-        new_listings = parse_and_insert_results(data, conn)
+        new_listings = parse_and_insert_results(data, conn, zipcode_data)
         all_new_listings.extend(new_listings)
 
     if all_new_listings:  # Only send email if there are new listings
-        send_email(all_new_listings, [RECIPIENT_1, RECIPIENT_2]) #for debugging just send to me
+        send_email(all_new_listings, [RECIPIENT_1, RECIPIENT_2])  # For debugging just send to me
 
     conn.close()
 
