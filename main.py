@@ -115,8 +115,8 @@ def parse_and_insert_results(data, conn, zipcode_data):
             "area": result.get("area", 0),
             "imgSrc": result["imgSrc"],
             "detailUrl": result["detailUrl"],
-            "variableData": variable_data_text,
-            "county": zipcode_data.determine_county(zip_code)  # Get the county based on the zip code
+            "county": zipcode_data.determine_county(zip_code),  # Get the county based on the zip code
+            "variableData": variable_data_text
         }
 
         row_id = insert_or_ignore_listing(conn, listing)
