@@ -129,9 +129,9 @@ def parse_and_insert_results(data, conn, zipcode_data):
     return new_listings
 
 # Function to send email notifications
-def send_email(new_listings, recipients):
+def send_email(new_listings, recipients, max_retries=3):
     msg = MIMEMultipart()
-    msg['From'] = EMAIL_SENDER
+    msg['From'] = 'testcode65@outlook.com'
     msg['To'] = ", ".join(recipients)
     msg['Subject'] = "hawaii zillow bot news"
 
@@ -157,14 +157,25 @@ def send_email(new_listings, recipients):
 
     msg.attach(MIMEText(body, 'html'))
 
-    try:
-        with smtplib.SMTP('smtp.mail.yahoo.com', 587) as server:
-            server.starttls()
-            server.login(EMAIL_SENDER, EMAIL_PASSWORD)
-            server.sendmail(msg['From'], recipients, msg.as_string())
-            logging.info(f"Email sent to {recipients}")
-    except Exception as e:
-        logging.error(f"Failed to send email: {e}")
+    attempt = 0
+    while attempt < max_retries:
+        try:
+            with smtplib.SMTP('smtp.office365.com', 587, timeout=60) as server:
+                server.set_debuglevel(1)  # Enable debug output
+                server.starttls()
+                server.login('testcode65@outlook.com', 'buttsurprise1000')
+                server.sendmail(msg['From'], recipients, msg.as_string())
+                logging.info(f"Email sent to {recipients}")
+                break  # Break the loop if email is sent successfully
+        except smtplib.SMTPException as e:
+            logging.error(f"Failed to send email: {e}")
+            attempt += 1
+            if attempt < max_retries:
+                logging.info(f"Retrying... ({attempt}/{max_retries})")
+                time.sleep(5)  # Wait before retrying
+        except Exception as e:
+            logging.error(f"An unexpected error occurred: {e}")
+            break
 
 # Function to scrape and notify recipients
 def scrape_and_notify():
