@@ -52,7 +52,8 @@ def create_table(conn):
             img_src TEXT,
             detail_url TEXT,
             variable_data TEXT,
-            county TEXT
+            county TEXT,
+            price_last_checked TEXT
         )
     """)
     conn.commit()
@@ -61,10 +62,10 @@ def create_table(conn):
 def insert_or_ignore_listing(conn, listing):
     cursor = conn.cursor()
     cursor.execute("""
-        INSERT OR IGNORE INTO listings (address, price, bedrooms, bathrooms, area, img_src, detail_url, variable_data, county)
-        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+        INSERT OR IGNORE INTO listings (address, price, bedrooms, bathrooms, area, img_src, detail_url, variable_data, county, price_last_checked)
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
     """, (listing["address"], listing["price"], listing["bedrooms"], listing["bathrooms"],
-          listing["area"], listing["imgSrc"], listing["detailUrl"], listing["variableData"], listing["county"]))
+          listing["area"], listing["imgSrc"], listing["detailUrl"], listing["variableData"], listing["county"], listing["price"]))
     conn.commit()
     return cursor.lastrowid  # Returns 0 if insertion was ignored
 
@@ -98,61 +99,101 @@ def scrape_kauai_zillow():
 # Function to parse and insert new listings into the database
 def parse_and_insert_results(data, conn, zipcode_data):
     list_results = data["props"]["pageProps"]["searchPageState"]["cat1"]["searchResults"]["listResults"]
+    price_changed_listings = []
     new_listings = []
 
-    for result in list_results:
-        # Adding 'variableData' field extraction
-        variable_data_text = result.get('variableData', {}).get('text', 'Not available')
+    cursor = conn.cursor()
 
-        # Extract zip code from the address, assuming it's the last part of the address
+    for result in list_results:
+        variable_data_text = result.get('variableData', {}).get('text', 'Not available')
         zip_code = result["address"].split()[-1]
 
         listing = {
             "address": result["address"],
             "price": result["price"],
-            "bedrooms": result.get("beds", 0),  # Use get for optional fields
+            "bedrooms": result.get("beds", 0),
             "bathrooms": result.get("baths", 0.0),
             "area": result.get("area", 0),
             "imgSrc": result["imgSrc"],
             "detailUrl": result["detailUrl"],
-            "county": zipcode_data.determine_county(zip_code),  # Get the county based on the zip code
+            "county": zipcode_data.determine_county(zip_code),
             "variableData": variable_data_text
         }
 
-        row_id = insert_or_ignore_listing(conn, listing)
-        if row_id:  # New listing inserted
-            logging.info(f"New listing inserted: {listing['address']}")
-            new_listings.append(listing)
+        cursor.execute("SELECT price FROM listings WHERE address = ?", (listing["address"],))
+        row = cursor.fetchone()
+        if row:
+            old_price = row[0]
+            if old_price != listing["price"]:
+                logging.info(f"Price change detected for {listing['address']}: {old_price} -> {listing['price']}")
+                listing["old_price"] = old_price  # Store the old price
+                price_changed_listings.append(listing)
+                cursor.execute("""
+                    UPDATE listings
+                    SET price = ?, bedrooms = ?, bathrooms = ?, area = ?, img_src = ?, detail_url = ?, variable_data = ?, county = ?, price_last_checked = ?
+                    WHERE address = ?
+                """, (listing["price"], listing["bedrooms"], listing["bathrooms"], listing["area"], listing["imgSrc"],
+                      listing["detailUrl"], listing["variableData"], listing["county"], listing["price"], listing["address"]))
         else:
-            logging.info(f"Listing already exists: {listing['address']}")
+            new_listings.append(listing)
+            cursor.execute("""
+                INSERT INTO listings (address, price, bedrooms, bathrooms, area, img_src, detail_url, variable_data, county, price_last_checked)
+                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+            """, (listing["address"], listing["price"], listing["bedrooms"], listing["bathrooms"], listing["area"],
+                  listing["imgSrc"], listing["detailUrl"], listing["variableData"], listing["county"], listing["price"]))
+            logging.info(f"New listing inserted: {listing['address']}")
 
-    return new_listings
+    conn.commit()
+    return new_listings, price_changed_listings
 
 # Function to send email notifications
-def send_email(new_listings, recipients, max_retries=3):
+def send_email(new_listings, price_changed_listings, recipients, max_retries=3):
+    if not new_listings and not price_changed_listings:
+        logging.info("No new listings or price changes detected, no email sent.")
+        return
+
     msg = MIMEMultipart()
-    msg['From'] = 'testcode65@outlook.com'
+    msg['From'] = EMAIL_SENDER
     msg['To'] = ", ".join(recipients)
-    msg['Subject'] = "hawaii zillow bot news"
+    msg['Subject'] = "zillow bot news v2"
 
     body = "<html><body>"
-    body += "<h1>hey i found some stuff:</h1>"
-    body += "<ul>"
 
-    for listing in new_listings:
-        body += "<li>"
-        body += (f"<p><b>Address:</b> {listing['address']}<br>"
-                 f"<b>Price:</b> {listing['price']}<br>"
-                 f"<b>Bedrooms:</b> {listing['bedrooms']}<br>"
-                 f"<b>Bathrooms:</b> {listing['bathrooms']}<br>"
-                 f"<b>Area:</b> {listing['area']} sqft<br>"
-                 f"<b>Days on Zillow:</b> {listing['variableData']}<br>"
-                 f"<b>County:</b> {listing['county']}<br>"  # Include county information
-                 f"<a href='{listing['detailUrl']}'>More details</a></p>")
-        body += f"<img src='{listing['imgSrc']}' alt='Listing Image' width='300'><br><br>"
-        body += "</li>"
+    if new_listings:
+        body += "<h1>new listings:</h1>"
+        body += "<ul>"
+        for listing in new_listings:
+            body += "<li>"
+            body += (f"<p><b>Address:</b> {listing['address']}<br>"
+                     f"<b>Price:</b> {listing['price']}<br>"
+                     f"<b>Bedrooms:</b> {listing['bedrooms']}<br>"
+                     f"<b>Bathrooms:</b> {listing['bathrooms']}<br>"
+                     f"<b>Area:</b> {listing['area']} sqft<br>"
+                     f"<b>Days on Zillow:</b> {listing['variableData']}<br>"
+                     f"<b>County:</b> {listing['county']}<br>"
+                     f"<a href='{listing['detailUrl']}'>More details</a></p>")
+            body += f"<img src='{listing['imgSrc']}' alt='Listing Image' width='300'><br><br>"
+            body += "</li>"
+        body += "</ul>"
 
-    body += "</ul>"
+    if price_changed_listings:
+        body += "<h1>price changes:</h1>"
+        body += "<ul>"
+        for listing in price_changed_listings:
+            body += "<li>"
+            body += (f"<p><b>Address:</b> {listing['address']}<br>"
+                     f"<b>Old Price:</b> {listing['old_price']}<br>"
+                     f"<b>New Price:</b> {listing['price']}<br>"
+                     f"<b>Bedrooms:</b> {listing['bedrooms']}<br>"
+                     f"<b>Bathrooms:</b> {listing['bathrooms']}<br>"
+                     f"<b>Area:</b> {listing['area']} sqft<br>"
+                     f"<b>Days on Zillow:</b> {listing['variableData']}<br>"
+                     f"<b>County:</b> {listing['county']}<br>"
+                     f"<a href='{listing['detailUrl']}'>More details</a></p>")
+            body += f"<img src='{listing['imgSrc']}' alt='Listing Image' width='300'><br><br>"
+            body += "</li>"
+        body += "</ul>"
+
     body += "</body></html>"
 
     msg.attach(MIMEText(body, 'html'))
@@ -163,7 +204,7 @@ def send_email(new_listings, recipients, max_retries=3):
             with smtplib.SMTP('smtp.office365.com', 587, timeout=60) as server:
                 server.set_debuglevel(1)  # Enable debug output
                 server.starttls()
-                server.login('testcode65@outlook.com', 'buttsurprise1000')
+                server.login(EMAIL_SENDER, EMAIL_PASSWORD)
                 server.sendmail(msg['From'], recipients, msg.as_string())
                 logging.info(f"Email sent to {recipients}")
                 break  # Break the loop if email is sent successfully
@@ -187,14 +228,16 @@ def scrape_and_notify():
     # List of scraping functions
     scraping_functions = [scrape_maui_zillow, scrape_kauai_zillow, scrape_big_island_zillow]
     all_new_listings = []
+    all_price_changed_listings = []
 
     for scrape_function in scraping_functions:
         data = scrape_function()
-        new_listings = parse_and_insert_results(data, conn, zipcode_data)
+        new_listings, price_changed_listings = parse_and_insert_results(data, conn, zipcode_data)
         all_new_listings.extend(new_listings)
+        all_price_changed_listings.extend(price_changed_listings)
 
-    if all_new_listings:  # Only send email if there are new listings
-        send_email(all_new_listings, [RECIPIENT_1, RECIPIENT_2])  # For debugging just send to me
+    if all_new_listings or all_price_changed_listings:  # Only send email if there are new listings or price changes
+        send_email(all_new_listings, all_price_changed_listings, [RECIPIENT_1, RECIPIENT_2])
 
     conn.close()
 

@@ -4,8 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="2c99b100-b154-4888-8641-197201ac0d13" name="Changes" comment="added category 'island' based on zip code dict in separate script. trying to send with yahoo mail but giving me shit. pushing to work on remotely but for now smtp non-functional  :((">
+    <list default="true" id="2c99b100-b154-4888-8641-197201ac0d13" name="Changes" comment="works">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/listings.db" beforeDir="false" afterPath="$PROJECT_DIR$/listings.db" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -39,13 +40,16 @@
   &quot;associatedIndex&quot;: 0
 }</component>
   <component name="ProjectId" id="2g6ADptlZpdPs21aTkUIpobszYF" />
-  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">{
   &quot;keyToString&quot;: {
+    &quot;ASKED_ADD_EXTERNAL_FILES&quot;: &quot;true&quot;,
     &quot;Python.main.executor&quot;: &quot;Run&quot;,
     &quot;Python.scratch.executor&quot;: &quot;Run&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
@@ -61,9 +65,9 @@
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
       <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
         <env name="EMAIL_PASSWORD" value="buttsurprise1000" />
         <env name="EMAIL_SENDER" value="testcode65@outlook.com" />
-        <env name="PYTHONUNBUFFERED" value="1" />
         <env name="RECIPIENT_1" value="mattrhansen@outlook.com" />
         <env name="RECIPIENT_2" value="jacobferry7@gmail.com" />
       </envs>
@@ -117,7 +121,7 @@
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-python-sdk-0509580d9d50-746f403e7f0c-com.jetbrains.pycharm.community.sharedIndexes.bundled-PC-241.14494.241" />
+        <option value="bundled-python-sdk-975db3bf15a3-31b6be0877a2-com.jetbrains.pycharm.community.sharedIndexes.bundled-PC-241.18034.82" />
       </set>
     </attachedChunks>
   </component>
@@ -258,10 +262,27 @@
       <option name="project" value="LOCAL" />
       <updated>1716487608645</updated>
     </task>
-    <option name="localTasksCounter" value="17" />
+    <task id="LOCAL-00017" summary="works">
+      <option name="closed" value="true" />
+      <created>1716651272984</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1716651272984</updated>
+    </task>
+    <task id="LOCAL-00018" summary="works">
+      <option name="closed" value="true" />
+      <created>1716664171100</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1716664171100</updated>
+    </task>
+    <option name="localTasksCounter" value="19" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
+    <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
     <MESSAGE value="initial commit" />
     <MESSAGE value="workable - trying for remote" />
     <MESSAGE value="requirements uploaded" />
@@ -272,6 +293,7 @@
     <MESSAGE value="improved logging" />
     <MESSAGE value="moved urls to separate file for readability&#10;added big island" />
     <MESSAGE value="added category 'island' based on zip code dict in separate script. trying to send with yahoo mail but giving me shit. pushing to work on remotely but for now smtp non-functional  :((" />
-    <option name="LAST_COMMIT_MESSAGE" value="added category 'island' based on zip code dict in separate script. trying to send with yahoo mail but giving me shit. pushing to work on remotely but for now smtp non-functional  :((" />
+    <MESSAGE value="works" />
+    <option name="LAST_COMMIT_MESSAGE" value="works" />
   </component>
 </project>
