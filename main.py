@@ -226,7 +226,7 @@ def scrape_and_notify():
     zipcode_data = ZipCodeData()  # Instantiate ZipCodeData
 
     # List of scraping functions
-    scraping_functions = [scrape_maui_zillow, scrape_kauai_zillow, scrape_big_island_zillow]
+    scraping_functions = [scrape_kauai_zillow, scrape_big_island_zillow]
     all_new_listings = []
     all_price_changed_listings = []
 
