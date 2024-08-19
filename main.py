@@ -242,7 +242,7 @@ def scrape_and_notify():
     conn.close()
 
 # Initial scrape and notify
-scrape_and_notify()
+# scrape_and_notify()
 
 # Schedule the scraping job to run twice daily
 schedule.every().day.at("08:00").do(scrape_and_notify)
