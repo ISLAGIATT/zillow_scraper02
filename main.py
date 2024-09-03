@@ -238,11 +238,12 @@ def scrape_and_notify():
 
     if all_new_listings or all_price_changed_listings:  # Only send email if there are new listings or price changes
         send_email(all_new_listings, all_price_changed_listings, [RECIPIENT_1, RECIPIENT_2])
+        #send_email(all_new_listings, all_price_changed_listings, [RECIPIENT_1]) just me for debug
 
     conn.close()
 
-# Initial scrape and notify
-# scrape_and_notify()
+# Initial scrape and notify for debug
+#scrape_and_notify()
 
 # Schedule the scraping job to run twice daily
 schedule.every().day.at("08:00").do(scrape_and_notify)
